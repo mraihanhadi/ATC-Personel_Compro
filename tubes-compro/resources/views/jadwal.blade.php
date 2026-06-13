@@ -345,9 +345,9 @@
             <div class="legend-note">
                 <strong>Notasi sel kerja:</strong> <code>[Shift]t[Sektor]/[Tim]</code> &mdash;
                 contoh <code>Pt1/A</code> = Pagi, Tower Sektor 1, Tim A.
-                <strong>Shift:</strong> P = Pagi, S = Siang, M = Malam &nbsp;&middot;&nbsp;
+                <strong>Shift:</strong> P = Pagi, S = Siang &nbsp;&middot;&nbsp;
                 <strong>Sektor:</strong> 1&ndash;2 (posisi di tower) &nbsp;&middot;&nbsp;
-                <strong>Tim:</strong> A&ndash;D (kelompok rotasi).
+                <strong>Tim:</strong> A&ndash;C (kelompok rotasi).
                 Arahkan kursor ke sel untuk melihat nama lengkap personel.
             </div>
         </div>
@@ -381,7 +381,7 @@
         });
 
         // Pemetaan shift (huruf depan notasi AirNav) → kelas warna sel.
-        const SHIFT_CELL_CLASS = { P: 'pa', S: 'sa', M: 'ma' };
+        const SHIFT_CELL_CLASS = { P: 'pa', S: 'sa' };
 
         async function loadJadwal() {
             const statusEl = document.getElementById('jadwalStatus');
