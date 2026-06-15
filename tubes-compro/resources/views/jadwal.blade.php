@@ -334,7 +334,6 @@
             <div class="legend-grid">
                 <div class="legend-chip"><span class="legend-code cell-pa">P</span> Shift Pagi (06:00&ndash;15:00)</div>
                 <div class="legend-chip"><span class="legend-code cell-sa">S</span> Shift Siang (15:00&ndash;24:00)</div>
-                <div class="legend-chip"><span class="legend-code cell-ma">M</span> Shift Malam</div>
                 <div class="legend-chip"><span class="legend-code cell-l">L</span> Libur / OFF</div>
                 <div class="legend-chip"><span class="legend-code cell-ct">CT</span> Cuti</div>
                 <div class="legend-chip"><span class="legend-code cell-sk">SK</span> Sakit</div>
