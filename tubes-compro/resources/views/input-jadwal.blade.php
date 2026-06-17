@@ -234,7 +234,7 @@
                     <i class="fa-solid fa-calendar-minus"></i>
                 </div>
                 <div class="upload-text">
-                    <strong>File Rencana Cuti (opsional)</strong> — klik untuk upload atau drag & drop
+                    <strong>File Rencana Cuti (Opsional)</strong> — klik untuk upload atau drag & drop
                 </div>
                 <div class="upload-subtext" id="subLeave">
                     CSV dengan kolom EMP_ID, HARI_KE, JENIS (maks. 10MB)

@@ -118,7 +118,7 @@ def set_period(month: int, year: int) -> None:
 
 
 def load_grid(path: Path) -> pd.DataFrame:
-    df_grid = pd.read_csv(path)
+    df_grid = pd.read_csv(path).fillna("")
     for col in ("EMP_ID", "NAMA", "INITIAL", "SEKTOR"):
         if col not in df_grid.columns:
             raise ValueError(f"Kolom {col} tidak ada di file roster grid")
