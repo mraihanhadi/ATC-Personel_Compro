@@ -117,8 +117,13 @@ def set_period(month: int, year: int) -> None:
 
 
 
+def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
+    df.columns = [str(col).strip().upper() for col in df.columns]
+    return df
+
+
 def load_grid(path: Path) -> pd.DataFrame:
-    df_grid = pd.read_csv(path).fillna("")
+    df_grid = normalize_columns(pd.read_csv(path).fillna(""))
     for col in ("EMP_ID", "NAMA", "INITIAL", "SEKTOR"):
         if col not in df_grid.columns:
             raise ValueError(f"Kolom {col} tidak ada di file roster grid")
@@ -126,7 +131,7 @@ def load_grid(path: Path) -> pd.DataFrame:
 
 
 def load_leave(path: Path) -> pd.DataFrame:
-    df_leave = pd.read_csv(path)
+    df_leave = normalize_columns(pd.read_csv(path))
     for col in ("EMP_ID", "HARI_KE", "JENIS"):
         if col not in df_leave.columns:
             raise ValueError(f"Kolom {col} tidak ada di file leave plan")
