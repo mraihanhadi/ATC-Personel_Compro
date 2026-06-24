@@ -954,6 +954,23 @@ def api_generate():
 
 
 
+@app.post("/api/clear")
+def api_clear():
+    """Hapus seluruh data jadwal saat ini: state, file output, serta data
+    roster & rencana cuti yang sudah diupload. Pengajuan pengurangan HK
+    tidak ikut dihapus."""
+    removed = []
+    for path in (PATH_STATE, PATH_OUT_CSV, PATH_OUT_XLSX, PATH_GRID, PATH_LEAVE):
+        if path.exists():
+            path.unlink()
+            removed.append(path.name)
+
+    return jsonify({
+        "message": "Data jadwal berhasil dihapus.",
+        "removed": removed,
+    })
+
+
 @app.get("/api/schedule/day")
 def api_schedule_day():
     state = require_state()

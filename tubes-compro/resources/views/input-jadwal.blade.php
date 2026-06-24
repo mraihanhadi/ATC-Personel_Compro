@@ -186,6 +186,39 @@
         .btn-submit:hover {
             background-color: #003380;
         }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-clear {
+            background-color: #FFF;
+            color: #C62828;
+            border: 1px solid #E5A3A3;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+        }
+
+        .btn-clear:hover {
+            background-color: #C62828;
+            color: #FFF;
+            border-color: #C62828;
+        }
+
+        .btn-clear:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -246,9 +279,14 @@
 
             <div id="uploadStatus" style="margin-bottom: 20px; font-size: 14px;"></div>
 
-            <button class="btn-submit" id="btnSubmit">
-                <i class="fa-solid fa-check"></i> Submit
-            </button>
+            <div class="actions">
+                <button class="btn-clear" id="btnClear">
+                    <i class="fa-solid fa-trash-can"></i> Hapus Data Jadwal
+                </button>
+                <button class="btn-submit" id="btnSubmit">
+                    <i class="fa-solid fa-check"></i> Submit
+                </button>
+            </div>
         </div>
     </div>
 
@@ -256,6 +294,7 @@
         const API = '/api';
         const statusEl = document.getElementById('uploadStatus');
         const btn = document.getElementById('btnSubmit');
+        const btnClear = document.getElementById('btnClear');
 
         function wireUpload(areaId, inputId, subId, defaultText) {
             const area  = document.getElementById(areaId);
@@ -322,6 +361,32 @@
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fa-solid fa-check"></i> Submit';
+            }
+        });
+
+        btnClear.addEventListener('click', async () => {
+            if (!confirm('Hapus seluruh data jadwal saat ini (roster, rencana cuti, dan hasil generate)? Tindakan ini tidak dapat dibatalkan.')) {
+                return;
+            }
+
+            btnClear.disabled = true;
+            btnClear.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menghapus…';
+            statusEl.innerHTML = '';
+
+            try {
+                const res  = await fetch(`${API}/clear`, { method: 'POST' });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Gagal menghapus data');
+
+                statusEl.innerHTML = `<span style="color:#2E7D32;">✓ ${data.message}</span>`;
+            } catch (err) {
+                const msg = err.message === 'Failed to fetch'
+                    ? 'Tidak bisa terhubung ke backend. Jalankan: <code>.venv/bin/python main.py</code>'
+                    : err.message;
+                statusEl.innerHTML = `<span style="color:#C62828;">${msg}</span>`;
+            } finally {
+                btnClear.disabled = false;
+                btnClear.innerHTML = '<i class="fa-solid fa-trash-can"></i> Hapus Data Jadwal';
             }
         });
     </script>
